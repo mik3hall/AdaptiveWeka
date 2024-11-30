@@ -1,0 +1,286 @@
+rankings <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-04-14/rankings.csv")
+pull_id <- function(query) {#
+  search_spotify(query, "track") %>%#
+    arrange(-popularity) %>%#
+    filter(row_number() == 1) %>%#
+    pull(id)#
+}
+ranking_ids <- rankings %>%#
+  mutate(#
+    search_query = paste(title, artist),#
+    search_query = str_to_lower(search_query),#
+    search_query = str_remove(search_query, "ft.*$")#
+  ) %>%#
+  mutate(id = map_chr(search_query, possibly(pull_id, NA_character_)))
+ranking_ids %>%#
+  select(title, artist, id)
+ranking_features <- ranking_ids %>%#
+  mutate(id_group = row_number() %/% 80) %>%#
+  select(id_group, id) %>%#
+  nest(data = c(id)) %>%#
+  mutate(audio_features = map(data, ~ get_track_audio_features(.$id)))
+ranking_features
+ranking_df <- ranking_ids %>%#
+  bind_cols(ranking_features %>%#
+    select(audio_features) %>%#
+    unnest(audio_features)) %>%#
+  select(title, artist, points, year, danceability:tempo) %>%#
+  na.omit()
+ranking_df
+library(corrr)
+install.packages("corrr")
+library(corrr)
+ranking_df %>%#
+  select(year:tempo) %>%#
+  correlate() %>%#
+  rearrange() %>%#
+  shave() %>%#
+  rplot(shape = 15, colours = c("darkorange", "white", "darkcyan")) +#
+  theme_plex()
+?rplot
+ranking_df %>%#
+  select(year:tempo) %>%#
+  correlate() %>%#
+  rearrange() %>%#
+  shave() %>%#
+  rplot(shape = 15, colours = c("darkorange", "white", "darkcyan"))
+ranking_lm <- ranking_df %>%#
+  select(-title, -artist) %>%#
+  lm(log(points) ~ ., data = .)
+ranking_lm
+summary(ranking_lm)
+library(tidymodels)
+install.packages("tidymodels")
+library(tidymodels)
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+world_asia = world[world$continent == "Asia", ]
+asia = st_union(world_asia)
+plot(world["pop"], reset = FALSE)
+plot(asia, add = TRUE, col = "red")
+plot(world["continent"], reset = FALSE)
+cex = sqrt(world$pop) / 10000
+world_cents = st_centroid(world, of_largest = TRUE)
+plot(st_geometry(world_cents), add = TRUE, cex = cex)
+india = world[world$name_long == "India", ]
+plot(st_geometry(india), expandBB = c(0, 0.2, 0.1, 1), col = "gray", lwd = 3)
+plot(world_asia[0], add = TRUE)
+df.columns[1]
+corretto <- c(129.909,127.681,126.496,129.931,123.603)
+mean(corretto)
+graal <- c(120.491,123.237,120.132,121.904,122.002)
+mean(graal)
+121.5532/127.524
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+install.packages("/Users/mjh/Downloads/fastmatch.zip",repos=NULL,type="source",quiet=FALSE,verbose=TRUE,keep_output=TRUE)
+install.packages("/Users/mjh/Downloads/fastmatch_1.1-0.tar.gz",repos=NULL,type="source",quiet=FALSE,verbose=TRUE,keep_output=TRUE)
+install.packages("/Users/mjh/Downloads/fastmatch.tar.gz",repos=NULL,type="source",quiet=FALSE,verbose=TRUE,keep_output=TRUE)
+library(fastmatch)
+?as
+install.packages("sf")
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+names(world)
+plot(world)
+?match
+library(sf)
+library(raster)
+install.packages("sf")
+install.packages("raster")
+install.packages("spData")
+remotes::install_github("Nowosad/spDataLarge")
+install.packages("remote")
+.libPaths()
+list.files("/Library/Frameworks/R.framework/Versions/4.0/Resources/library")
+old_packages <- installed.packages(lib.loc="/Library/Frameworks/R.framework/Versions/4.0/Resources/library")
+head(old_packages[,1])
+new_packages <- installed.packages()
+missing_df <- as.data.frame(old_packages[!old_packages[,"Package"] %in% new_packages[,"Package"],])
+install.packages(missing_df$Package)
+missing_df
+missing_df$Package
+old_packages <- installed.packages(lib.loc="/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
+old_packages
+missing_df <- as.data.frame(old_packages[!old_packages[,"Package"] %in% new_packages[,"Package"],])
+missing_df
+install.packages(missing_df$Package)
+missing_df <- as.data.frame(old_packages[#
+  !old_packages[, 1] %in% installed.packages()[, 1], #
+  ])
+missing_df
+setwd()
+setwd("~")
+instal.packages("RcppArmadillo",quiet=TRUE,verbose=TRUE,keep_output=TRUE)
+install.packages("RcppArmadillo",quiet=TRUE,verbose=TRUE,keep_output=TRUE)
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+remotes::install_github("Nowosad/spDataLarge")
+install.packages("remotes")
+remotes::install_github("Nowosad/spDataLarge")
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+names(world)
+plot(world)
+st_point(c(5, 2))
+multipoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
+multipoint_matrix
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
+new_raster = raster(raster_filepath)
+library(rgdal)
+install.packages("rgdal")
+library(rgdal)
+new_raster = raster(raster_filepath)
+new_raster
+plot(new_raster)
+500/12
+library(astsa)
+install.packages("astsa")
+help(jjj)
+help(jj)
+summary(jj)
+load("astsa")
+library("astsa")
+help(jj)
+?acf
+.25/1.5
+1/1.5
+64/533
+46.053756/44.21
+1023/24
+9*24
+42*.8
+library(forecast)
+library(astsa)
+?sunspots
+str(sunspots)
+12 * (1984-1749)
+n = 2820
+level = 0.4856207
+trend = .001282363
+seasonal = .1589522
+level + trend
+level = 44.44311347
+trend = -0.01320934
+colnames(sunspots)
+tail(sunspots)
+tail(sunspots,12)
+seasonal = -8.53419032
+level + 4*trend + seasonal
+library(fpp3)
+install.packages("fpp3")
+library(fpp3)
+help(sunspots)
+kings <- scan("http://robjhyndman.com/tsdldata/misc/kings.dat",skip=3)
+kingstimeseries <- ts(kings)
+kingstimeseries
+births <- scan("http://robjhyndman.com/tsdldata/data/nybirths.dat")
+birthstimeseries <- ts(births, frequency=12, start=c(1946,1))
+birthstimeseries
+souvenir <- scan("http://robjhyndman.com/tsdldata/data/fancy.dat")
+souvenirtimeseries <- ts(souvenir, frequency=12, start=c(1987,1))
+souvenirtimeseries
+plot.ts(kingstimeseries)2.3.
+plot.ts(birthstimeseries)
+logsouvenirtimeseries <- log(souvenirtimeseries)
+plot.ts(logsouvenirtimeseries)
+library(TTR)
+library(forecast)
+data <- read.csv("/Users/mjh/Documents/weka/aggressive.csv")
+data
+plot(data$iteration,data$elapsed)
+42*.25
+42-11
+2014 - 1943
+23974/2
+2436+7882
++11987
+10318+11987
+2436+7882
+line3 = 10318
+line4 = 16460
+x <- line4 * 4
+line3_ws = x
+line1_ws = line3
+line2_ws = line4
+line1_ws > line3_ws
+line1_ws/line2_ws
+(line1_ws/line2_ws)*100
+10318*.0208
+215/12
+552.26+1243.85
+493.20+1210.80
+colb <- rep(1848.81,times=12)
+colc <- c(rep(1704,times=8),390,390,390,213.87)
+colb
+colc
+cold <- colb-colc
+cold
+493.2+1210.8
+cole <- c(rep(1704,times=8),390,390,390,213.87)
+cole
+sum(cole)
+rm(cole)
+cole
+cole <- c(rep(1704,times=8),390,390,390,213.87)
+colesum <- sum(cole)
+colfsum <- sum(colf)
+colf <- c(rep(1704,time=8),390,390,390,213.87)
+colfsum <- sum(colf)
+colesum
+300/90687
+42 - 25
+46/49
+72/79
+a8 <- c(.6,.2,.6,.8,.6,1,1,.6)
+9 <- c(.6,.4,.4,0,.2,.4,.2,.4)
+a9 <- c(.6,.4,.4,0,.2,.4,.2,.4)
+a95 <- c(.8,.6,.2,.8,.4,.4,0,.6)
+a85 <- c(.6,.6,.6,.6,.8,.4,.6,.6)
+summary(a85)
+a75 <- c(.2,.8,.4,.6,0,.2,.4,.8)
+mean(a75)
+mean(a8)
+.775*2
+a775 <- c(.8,.6,.4,.4,.4,1,.2,.2)
+mean(a775)
+mean(a8)
+a8.2 <- c(.6,.4,.8,.4,.8,0,.2,.6)
+mean(a8.2)
+?rnorm
+current <- c(81)
+current <- c(current,78)
+current
+current <- c(current,76)
+current <- c(current,77)
+current
+current <- c(current,79)
+current
+mean(current)
+setwd("~/Documents/weka")
+data <- read.csv("aggressive.csv")
+data$
+elapsed
+colnames(data)
+data[data$iteration == 6250]$elapsed
+data[data$iteration == 6250,"elapsed"]
+plot(data$iteration,data$elapsed)
+data

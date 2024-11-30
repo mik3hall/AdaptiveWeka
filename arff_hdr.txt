@@ -1,0 +1,22 @@
+@RELATION RFIterationBenchmark
+
+@ATTRUBUTE iteration     NUMERIC
+@ATTRIBUTE instances     NUMERIC
+@ATTRIBUTE attributes    NUMERIC
+@ATTRIBUTE runtime_total NUMERIC
+@ATTRIBUTE runtime_max   NUMERIC
+@ATTRIBUTE elapsed       NUMERIC
+@ATTRIBUTE eden_count    NUMERIC
+@ATTRIBUTE eden_time     NUMERIC
+@ATTRIBUTE eden_peak     NUMERIC
+@ATTRIBUTE eden_used     NUMERIC
+@ATTRIBUTE old_count     NUMERIC
+@ATTRIBUTE old_time      NUMERIC
+@ATTRIBUTE old_peak      NUMERIC
+@ATTRIBUTE old_used      NUMERIC
+@ATTRIBUTE surv_peak     NUMERIC
+@ATTRIBUTE surv_used     NUMERIC
+@ATTRIBUTE thread_user   NUMERIC
+@ATTRUBUTE iter_mem      NUMERIC
+
+@DATA

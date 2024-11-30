@@ -1,0 +1,58 @@
+/**
+ * Unused code to fit a polynomial to nonlinear part.
+ * was considering using SSE to determine best degree.
+ *
+ * I looked for some computational way to directly determine the best degree 
+ * and came across
+ * Michael Thomas Flanagan's Java Scientific Library
+ * Regression Class:     Linear and Non-linear Regression
+ * https://www.ee.ucl.ac.uk/~mflanaga/java/Regression.html#bestp
+ * with
+ * Fitting to a polynomial of unknown degree and unknown intercept
+ * This loops through by degree but appears to use F-test to determine best fit.
+ * With my limited statistics I am not sure what that does. SSE I think could be computed
+ * against the actual data and predictions made against the curve and would be good 
+ * enough. 
+ * For right now even this seems unnecessary.
+ * And it suggests no direct computational method can just determine best fit degree.
+ **/
+
+
+import org.apache.commons.math3.fitting.PolynomialCurveFitter;
+import org.apache.commons.math3.fitting.WeightedObservedPoints;
+	
+	
+		WeightedObservedPoints obs = new WeightedObservedPoints();
+
+		System.out.println(yName + "  by " + xName);
+		double[] xA = data.attributeToDoubleArray(data.attribute(xName).index());
+		double[] yA = data.attributeToDoubleArray(data.attribute(yName).index());
+/*
+		double[] lnXA = new double[xA.length];
+		double[] lnYA = new double[yA.length];
+		for (int i = 0; i < lnXA.length; i++) {
+			lnXA[i] = Math.log(xA[i]);
+			lnYA[i] = Math.log(yA[i]);
+		}
+*/
+		for (int i = 0; i < xA.length; i++) {
+			obs.add(xA[i],yA[i]);
+		}
+		for (int degree = 1; degree < 4; degree++) {
+			PolynomialCurveFitter fitter = PolynomialCurveFitter.create(degree);
+			double[] coeff = fitter.fit(obs.toList());
+			System.out.println("Degree: " + degree + " SSE: " + sse(xA,yA,coeff));
+			for (int i = 0; i < coeff.length; i++) {
+				System.out.println(coeff[i]);
+			}
+			System.out.println("_______");
+		}
+		
+	private static void sse(double[] xA, double[] yA, double[] coeff) {
+		double sum = 0;
+		int max = coeff.length;
+		for (i = 0; i < yA.length; i++) {
+			
+		}
+	}
+	
