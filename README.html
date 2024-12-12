@@ -354,6 +354,71 @@ display: none;
 
 <div id="adaptive-weka" class="section level1">
 <h1>Adaptive Weka</h1>
+<div id="background" class="section level2">
+<h2>Background</h2>
+<p>The idea of adaptive Weka is to have code that dynamically takes
+advantage of current hardware capabilities and execution state.</p>
+<p>The idea initially came after I purchased a new Mac. It is an M3 that
+the System Information shows having 11 processors, 5 performance and 6
+efficiency. I think previously I’ve never had a machine with more than 4
+cores.</p>
+<p>A thought of what could take advantage of this was Weka
+cross-validation. If the machine had the processors these could be
+executed separately.</p>
+<p>I added this to an old existing project where I had been looking at
+Weka memory use. In doing some testing I copyied the garbage collection
+parameters from one of my applications and saw that this improved memory
+usage for the Weka test. I started looking at this but didn’t complete
+anything useful. That is most of what is included here. I added what I
+am currently doing to it. I may go back and cleanup and complete some of
+that for this effort.</p>
+<p>Currently though a lot of this is just incomplete mess though.</p>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>I have a couple Weka evaluation subclass’s that do parallelism of
+cross validation. In looking at this I saw that some parallelism support
+has already been added to executing some of the classifiers themselves.
+When you do the buildClassifier methods I think. From the GUI it is
+controlled by the<br />
+For cross-validation the wekaServer package was suggested to me on the
+Weka mailing list. I looked at that but for weka proper I did it
+somewhat differently. I have also just noticed that some attribute
+selection algorithms also appear to support parallelism.</p>
+<p>These are handled the same as is normal in Weka in that they are
+parameter controlled. You can indicate execution slots or it defaults to
+none. My code differs from this static approach in attempting a more
+dynamic default where it selects some number of parallel execution
+threads based on processor availability and number of folds
+requested.</p>
+</div>
+<div id="benchmarking" class="section level2">
+<h2>Benchmarking</h2>
+<p>My current build is…</p>
+<p><code>javac -d . --add-exports java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar src/*.java</code></p>
+<p>Currently a simple benchmark is run with…</p>
+<p><code>java --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff</code></p>
+<p>It is the 11.2MB mnist dataset as <a href="https://github.com/christopher-beckham/weka-pyscript/blob/master/datasets/mnist.arff">here</a></p>
+<p>Initally, Random Forest execution slot performance was somewhat
+faster than threaded cross validation. So I mixed using that as well if
+the processors seem available with…</p>
+<p><code>if (copiedClassifier instanceof ParallelIteratedSingleClassifierEnhancer) {             int avail = Runtime.getRuntime().availableProcessors();             int active = Thread.activeCount();             if (avail - active &gt; 3) {                 ((ParallelIteratedSingleClassifierEnhancer)copiedClassifier).setNumExecutionSlots(2);             }</code></p>
+<p>Although activeCount seems to only apply to the current thread group,
+possibly underestimating actual processesors active(?), this improved
+performance to give the best execution times. If you set this yourself I
+might override it, I generally assume threading is being left to my
+code.</p>
+<p>The simple code I have to choose default thread pool sizes per fold
+doesn’t always, even often, select the optimal size. If you, maybe,
+benchmark youself and determine some other size is better it can be
+forced to that size with…</p>
+<p><code>((AdaptiveEvaluation)eval).setThreadCnt(threadCnt);</code></p>
+<p>The per thread output shows that the requested always matches the
+used, as well as milliseconds.</p>
+<p><code>2 7817 used 2</code></p>
+<p>Even if the classifier itself doesn’t support parallel, if cross
+validation does you still get a performance gain. I included SMO
+benchmards against the same dataset for this.</p>
 <p>*** RandomForest ***<br />
 *** CV Fold 3<br />
 Default Adaptive(3 fold): used 2 threads. Elapsed(sec) 8.10. accuracy
@@ -450,6 +515,7 @@ Single Thread for fold 10 Elapsed(sec) 263.84. accuracy 93.54<br />
     7 61281 used 7<br />
 Adaptive:<br />
 Avg: 84459 Min: 58253 Thread 5. Max: 61281 Thread 7</p>
+</div>
 </div>
 
 

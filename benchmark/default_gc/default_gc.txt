@@ -1,0 +1,82 @@
+java -Xlog:gc:stderr --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log.txt 2>gclog.txt
+
+java -Xlog:gc:stderr -XX:+UseG1GC --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_G1GC.txt 2>gclog_G1GC.txt
+
+java -Xlog:gc:stderr -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=50 --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_G1GC_hp.txt 2>gclog_G1GC_hp.txt
+
+java -Xlog:gc:stderr -XX:+UseParallelGC -XX:MaxGCPauseMillis=50 --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_Parallel_hp.txt 2>gclog_Parallel_hp.txt
+
+java -Xlog:gc:stderr -XX:+UseParallelGC -XX:MaxGCPauseMillis=50 --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_Parallel_hp.txt 2>gclog_Parallel_hp.txt
+
+java -Xlog:gc:stderr -XX:+UseSerialGC --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_Serial.txt 2>gclog_Serial.txt
+
+java -Xlog:gc:stderr -XX:+UseZGC --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_ZGC.txt 2>gclog_ZGC.txt
+
+java -Xlog:gc:stderr -XX:+UseZGC -XX:+ZGenerational --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_ZGCgen.txt 2>gclog_ZGCgen.txt
+
+/Applications/weka-3.9.6.app/Contents/runtime/Contents/Home/bin/java -Xlog:gc:stderr -XX:+UseShenandoahGC --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar RFAdaptive -b mnist.arff > log_Shenandoah.txt 2>gclog_Shenandoah.txt
+
+
+Default GC:
+
+Forced collection count = 0
+Full collections = 0
+GC Mode = G1
+Mean garbage collection pause (ms) = 1.8986998623795859
+Number of collections triggered by allocation failure = 7321
+Proportion of time spent in garbage collection pauses (%) = 0.44
+Proportion of time spent in stop-the-world garbage collection pauses (%) = 0.44
+Proportion of time spent unpaused (%) = 99.56
+Young collections - Mean garbage collection pause (ms) = 2.049827345990984
+Young collections - Mean interval between collections (ms) = 473.52246960797703
+
+Default G1GC:
+
+Forced collection count	0
+Full collections	0
+GC Mode	G1
+Mean garbage collection pause (ms)	1.91
+Number of collections triggered by allocation failure	7211
+Proportion of time spent in garbage collection pauses (%)	0.42
+Proportion of time spent in stop-the-world garbage collection pauses (%)	0.42
+Proportion of time spent unpaused (%)	99.58
+Young collections - Mean garbage collection pause (ms)	2.06
+Young collections - Mean interval between collections (ms)	498
+
+HalfPipe G1GC & Memory (Maybe shouldn't of changed memory?)
+
+Forced collection count	0
+Full collections	0
+GC Mode	G1
+Mean garbage collection pause (ms)	1.11
+Number of collections triggered by allocation failure	15290
+Proportion of time spent in garbage collection pauses (%)	0.61
+Proportion of time spent in stop-the-world garbage collection pauses (%)	0.61
+Proportion of time spent unpaused (%)	99.39
+Young collections - Mean garbage collection pause (ms)	1.38
+Young collections - Mean interval between collections (ms)	238
+
+Default Parallel:
+
+Forced collection count	0
+Full collections	131
+Mean garbage collection pause (ms)	1.36
+Mean interval between collections (ms)	451
+Number of collections triggered by allocation failure	7206
+Proportion of time spent in garbage collection pauses (%)	0.3
+Proportion of time spent unpaused (%)	99.7
+Rate of garbage collection (MB/minutes)	36616
+
+Default Serial:
+
+Forced collection count	0
+Full collections	223
+Mean garbage collection pause (ms)	3.8
+Mean interval between collections (ms)	208
+Number of collections triggered by allocation failure	16895
+Proportion of time spent in garbage collection pauses (%)	1.83
+Proportion of time spent unpaused (%)	98.17
+Rate of garbage collection (MB/minutes)	34018
+
+Default ZGC:
+

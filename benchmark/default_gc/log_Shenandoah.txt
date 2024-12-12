@@ -1,0 +1,98 @@
+*** RandomForest ***
+*** CV Fold 3
+Default Adaptive(3 fold): used 2 threads. Elapsed(sec) 12.11. accuracy 94.86
+Single Thread for fold 3 Elapsed(sec) 30.04. accuracy 94.77
+	2 10696 used 2
+	3 5957 used 3
+	4 6053 used 4
+	5 5901 used 5
+	6 5944 used 6
+	7 5909 used 7
+Slotted:
+Avg: 9210	Min: 6282 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 6743	Min: 5901 Thread 5.	Max: 6053 Thread 4
+*** CV Fold 5
+Default Adaptive(5 fold): used 3 threads. Elapsed(sec) 13.30. accuracy 94.89
+Single Thread for fold 5 Elapsed(sec) 60.51. accuracy 94.94
+	2 18784 used 2
+	3 13583 used 3
+	4 15100 used 4
+	5 9127 used 5
+	6 9131 used 6
+	7 8959 used 7
+Slotted:
+Avg: 18205	Min: 12215 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 12447	Min: 8959 Thread 7.	Max: 15100 Thread 4
+*** CV Fold 8
+Default Adaptive(8 fold): used 4 threads. Elapsed(sec) 24.92. accuracy 95.14
+Single Thread for fold 8 Elapsed(sec) 104.89. accuracy 95.13
+	2 28368 used 2
+	3 21774 used 3
+	4 22941 used 4
+	5 23208 used 5
+	6 18214 used 6
+	7 29312 used 7
+Slotted:
+Avg: 30810	Min: 20209 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 23969	Min: 18214 Thread 6.	Max: 29312 Thread 7
+*** CV Fold 10
+Default Adaptive(10 fold): used 5 threads. Elapsed(sec) 25.49. accuracy 95.21
+Single Thread for fold 10 Elapsed(sec) 134.89. accuracy 95.19
+	2 35467 used 2
+	3 29456 used 3
+	4 24417 used 4
+	5 24571 used 5
+	6 25938 used 6
+	7 32373 used 7
+Slotted:
+Avg: 39110	Min: 25598 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 28703	Min: 24417 Thread 4.	Max: 32373 Thread 7
+*** SMO ***
+*** CV Fold 3
+Default Adaptive(3 fold): used 2 threads. Elapsed(sec) 73.19. accuracy 93.15
+Single Thread for fold 3 Elapsed(sec) 108.86. accuracy 93.15
+	2 72858 used 2
+	3 38708 used 3
+	4 38136 used 4
+	5 38260 used 5
+	6 38561 used 6
+	7 38618 used 7
+Adaptive:
+Avg: 44190	Min: 38136 Thread 4.	Max: 38618 Thread 7
+*** CV Fold 5
+Default Adaptive(5 fold): used 3 threads. Elapsed(sec) 67.93. accuracy 93.53
+Single Thread for fold 5 Elapsed(sec) 162.36. accuracy 93.54
+	2 97845 used 2
+	3 67529 used 3
+	4 66373 used 4
+	5 35879 used 5
+	6 36215 used 6
+	7 35694 used 7
+Adaptive:
+Avg: 56589	Min: 35694 Thread 7.	Max: 36215 Thread 6
+*** CV Fold 8
+Default Adaptive(8 fold): used 4 threads. Elapsed(sec) 66.04. accuracy 93.48
+Single Thread for fold 8 Elapsed(sec) 242.16. accuracy 93.48
+	2 124355 used 2
+	3 95108 used 3
+	4 65972 used 4
+	5 65224 used 5
+	6 67747 used 6
+	7 68749 used 7
+Adaptive:
+Avg: 81192	Min: 65224 Thread 5.	Max: 68749 Thread 7
+*** CV Fold 10
+Default Adaptive(10 fold): used 5 threads. Elapsed(sec) 69.79. accuracy 93.55
+Single Thread for fold 10 Elapsed(sec) 298.00. accuracy 93.54
+	2 160580 used 2
+	3 123194 used 3
+	4 93771 used 4
+	5 65525 used 5
+	6 67586 used 6
+	7 69633 used 7
+Adaptive:
+Avg: 96714	Min: 65525 Thread 5.	Max: 69633 Thread 7
