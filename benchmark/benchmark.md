@@ -30,7 +30,7 @@ The per thread output shows that the requested always matches the used, as well 
 
 ```2 7817 used 2```
 
-The [initial benchmark](benchmark/initial.md) results.
+The [initial benchmark](initial.md) results.
 
 Memory was the motivation for how this effort began. I noticed in profiling, with jconsole if I recall correctly, that using the same garbage collection parameters as one of my applications resulted in better management of a large amount of data.
 
