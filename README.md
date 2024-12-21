@@ -28,6 +28,21 @@ These are handled the same as is normal in Weka in that they are parameter contr
 
 I have moved the current [benchmarking](benchmark/benchmark.md) related.
 
+## AdaptiveCVInstances
+
+A Instances subclass that includes a CVFoldInfo which allows indexing off of a reference to a single Instances object for cross validation with AdaptiveEvaluation. This is instead of using the trainCV and testCV Instances methods which take copies of the base Instances for each fold. As far as I know all access to Instances in cross validation is read only. The CVFoldInfo is
+unique to each fold so is not a shared resource. Therefore I think, for now, that this is thread safe. 
+
+I included displays of memory pool information at [memory](benchmark/memory). This didn't work with the ZGC garbage collector which had seemed best so this is based on default garbage collection.
+
+To allow comparison with or without AdaptiveCVInstances I added a system property at lauch. ACVI. Used as in...  
+
+`java --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar -DACVI=true RFAdaptive -b mnist.arff`
+
+If the -DACVI=true is omitted then AdaptiveCVInstances aren't used. 
+
+The memory benchmark runs didn't appear to show the dramatic improvement I thought I might get. I still haven't tried coming up with a test case that shows that it might avoid some out of memory errors. 
+
 ## Miscellaneous
 
 I had included the [cifar 10](https://en.wikipedia.org/wiki/CIFAR-10) dataset in the project. GitHub objected to the size. After looking at the [Weka MOOC for imaging](https://www.youtube.com/watch?app=desktop&v=XBSJOkuAtCw&t=185s) I made the changes needed for that and uploaded to my site [cifar10.zip](http://mikehall.pairserver.com/cifar10.zip). I have successfully managed to totally blow out memory a number of times with this. My best classification was low to mid 50%. I was thinking about including it in my benchmarking but was hoping for better results first and haven't done so yet. If anyone cracks 60% accuracy let me know.
