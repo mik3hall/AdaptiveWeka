@@ -5,6 +5,7 @@ import weka.classifiers.AdaptiveEvaluation;
 import weka.classifiers.functions.SMO;
 import weka.classifiers.trees.RandomForest;
 import weka.classifiers.functions.supportVector.NormalizedPolyKernel;
+import weka.filters.Filter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -24,6 +25,8 @@ import us.hall.gc.benchmark.Util;
 public class RFAdaptive {
 
 	private static final Runtime rt = Runtime.getRuntime();
+	private static long[] peakUseds = new long[] { 0L, 0L, 0L };
+	private static long[] maxUseds = new long[] { 0L, 0L, 0L}; 
 	static int seed = 1;
 	
 	RFAdaptive() {
@@ -191,6 +194,7 @@ public class RFAdaptive {
 			catch (Exception ex) {
 				ex.printStackTrace();
 			}
+			MemPoolData poolData = Util.pools(peakUseds,maxUseds);
 			for (int t = 2; t < 8; t++) {
 				try {
 					if (!singlesDone[f]) {
@@ -217,6 +221,7 @@ public class RFAdaptive {
 				catch (Exception ex) {
 					ex.printStackTrace();
 				}
+				poolData = Util.pools(peakUseds,maxUseds);
 			}
 			int len = adaptiveThreaded.size();
 			long sumSlotTime = 0L;
@@ -278,6 +283,7 @@ public class RFAdaptive {
 					" threads. Elapsed(sec) " + 
 					String.format("%.2f",(rtime/1000d)) + 
 					". accuracy " + String.format("%.2f",eval.pctCorrect()));	
+				MemPoolData poolData = Util.pools(peakUseds,maxUseds);
 			}	
 			catch (Exception ex) {
 				ex.printStackTrace();
@@ -300,6 +306,7 @@ public class RFAdaptive {
 					adaptiveTimes.add(adaptTime);
 					System.out.println("\t"+ t + " " + adaptTime + " used " + 
 						((AdaptiveEvaluation)adapted).getThreadCnt());
+					MemPoolData poolData = Util.pools(peakUseds,maxUseds);
 				}
 				catch (Exception ex) { ex.printStackTrace(); }
 			}
@@ -338,11 +345,24 @@ public class RFAdaptive {
 		eval.crossValidateModel(classifier, trainingData, folds, new java.util.Random(seed));
 		return eval;
 	}
-	
+  		
 	static class Completion extends Thread {
 	
-		public void run() {
-
-		}
+  		public void run() {
+  			printFinal(peakUseds, maxUseds);
+  		}
+  		
+  		static void printFinal(long[] peakUseds, long[] maxUseds) {
+  			System.out.println("Final maximums");
+  			System.out.println("\tEden Space");
+  			System.out.println("\t\tMaximum peak: " + peakUseds[0]);
+  			System.out.println("\t\tMaximum used: " + maxUseds[0]);
+  			System.out.println("\tOld Gen");
+  			System.out.println("\t\tMaximum peak: " + peakUseds[1]);
+  			System.out.println("\t\tMaximum used: " + maxUseds[1]);
+  			System.out.println("\tSurvivor");
+  			System.out.println("\t\tMaximum peak: " + peakUseds[2]);
+  			System.out.println("\t\tMaximum used: " + maxUseds[2]);  		
+  		}
 	}
 }

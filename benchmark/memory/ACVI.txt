@@ -1,0 +1,770 @@
+*** RandomForest ***
+*** CV Fold 3
+Default Adaptive(3 fold): used 2 threads. Elapsed(sec) 8.62. accuracy 94.83
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 297795584. Used: 213909504
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Old Gen
+		Peak: 111588752. Used: 111588752
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 28460920. Used: 24833728
+		Collection
+Single Thread for fold 3 Elapsed(sec) 23.30. accuracy 94.75
+	2 8422 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 297795584. Used: 130023424
+		Collection
+			Count: 4. Time(ms): 2
+	Name: G1 Old Gen
+		Peak: 240107224. Used: 98347712
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 28460920. Used: 13677672
+		Collection
+	3 4609 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 394264576. Used: 138412032
+		Collection
+			Count: 6. Time(ms): 2
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 88047640
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 35541152. Used: 22376408
+		Collection
+	4 4627 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 394264576. Used: 192937984
+		Collection
+			Count: 8. Time(ms): 3
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 137003064
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 35541152. Used: 20462592
+		Collection
+	5 4765 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 398458880. Used: 255852544
+		Collection
+			Count: 10. Time(ms): 3
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 160524808
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 35541152. Used: 31074328
+		Collection
+	6 4632 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 398458880. Used: 222298112
+		Collection
+			Count: 14. Time(ms): 4
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 102441896
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 35541152. Used: 27004272
+		Collection
+	7 4636 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 419430400. Used: 20971520
+		Collection
+			Count: 18. Time(ms): 5
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 100510320
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 38385784. Used: 27753920
+		Collection
+Slotted:
+Avg: 7166	Min: 4763 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 5281	Min: 4609 Thread 3.	Max: 4765 Thread 5
+*** CV Fold 5
+Default Adaptive(5 fold): used 3 threads. Elapsed(sec) 10.57. accuracy 96.38
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 419430400. Used: 8388608
+		Collection
+			Count: 20. Time(ms): 6
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 103508792
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 38385784. Used: 20146880
+		Collection
+Single Thread for fold 5 Elapsed(sec) 47.17. accuracy 94.83
+	2 15041 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 419430400. Used: 92274688
+		Collection
+			Count: 46. Time(ms): 11
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 65267728
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 38385784. Used: 14803312
+		Collection
+	3 10593 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 419430400. Used: 50331648
+		Collection
+			Count: 54. Time(ms): 13
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 74237312
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 38385784. Used: 13250368
+		Collection
+	4 11039 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 419430400. Used: 218103808
+		Collection
+			Count: 60. Time(ms): 15
+	Name: G1 Old Gen
+		Peak: 313457360. Used: 125459376
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 38385784. Used: 19168144
+		Collection
+	5 6817 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 180355072
+		Collection
+			Count: 66. Time(ms): 16
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 78728800
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 19584384
+		Collection
+	6 6787 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 54525952
+		Collection
+			Count: 70. Time(ms): 17
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 92433184
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 25690584
+		Collection
+	7 6818 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 67108864
+		Collection
+			Count: 76. Time(ms): 19
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 86487560
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 17217728
+		Collection
+Slotted:
+Avg: 14003	Min: 9106 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 9515	Min: 6787 Thread 6.	Max: 11039 Thread 4
+*** CV Fold 8
+Default Adaptive(8 fold): used 4 threads. Elapsed(sec) 18.01. accuracy 97.53
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 192937984
+		Collection
+			Count: 80. Time(ms): 20
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 195953880
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 29152016
+		Collection
+Single Thread for fold 8 Elapsed(sec) 82.90. accuracy 94.98
+	2 22292 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 41943040
+		Collection
+			Count: 194. Time(ms): 46
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 73841288
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 9894928
+		Collection
+	3 17301 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 121634816
+		Collection
+			Count: 208. Time(ms): 50
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 116449360
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 19599896
+		Collection
+	4 18405 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 121634816
+		Collection
+			Count: 220. Time(ms): 53
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 90838768
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 17186408
+		Collection
+	5 18224 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 58720256
+		Collection
+			Count: 230. Time(ms): 55
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 211613952
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 26828112
+		Collection
+	6 19035 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 549453824. Used: 218103808
+		Collection
+			Count: 240. Time(ms): 58
+	Name: G1 Old Gen
+		Peak: 334958280. Used: 138080000
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 47942976. Used: 26210864
+		Collection
+	7 23081 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 88080384
+		Collection
+			Count: 252. Time(ms): 61
+	Name: G1 Old Gen
+		Peak: 368474936. Used: 368474936
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 46104480
+		Collection
+Slotted:
+Avg: 24314	Min: 15484 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 19723	Min: 17301 Thread 3.	Max: 23081 Thread 7
+*** CV Fold 10
+Default Adaptive(10 fold): used 5 threads. Elapsed(sec) 19.45. accuracy 98.83
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 264241152
+		Collection
+			Count: 260. Time(ms): 63
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 209330880
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 24472528
+		Collection
+Single Thread for fold 10 Elapsed(sec) 106.80. accuracy 95.29
+	2 28604 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 96468992
+		Collection
+			Count: 444. Time(ms): 106
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 70447344
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 9818688
+		Collection
+	3 23344 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 201326592
+		Collection
+			Count: 460. Time(ms): 110
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 119076528
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 16402272
+		Collection
+	4 19453 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 201326592
+		Collection
+			Count: 480. Time(ms): 115
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 87344896
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 23045720
+		Collection
+	5 19479 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 71303168
+		Collection
+			Count: 496. Time(ms): 120
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 95733960
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 25717336
+		Collection
+	6 20027 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 968884224. Used: 155189248
+		Collection
+			Count: 508. Time(ms): 123
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 190344016
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 26800008
+		Collection
+	7 24430 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 721420288
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 570281984. Used: 516968888
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 49082848
+		Collection
+Slotted:
+Avg: 31165	Min: 19826 Thread 7.	Max: 0 Thread 0
+Adaptive:
+Avg: 22556	Min: 19453 Thread 4.	Max: 24430 Thread 7
+*** SMO ***
+*** CV Fold 3
+Default Adaptive(3 fold): used 2 threads. Elapsed(sec) 57.52. accuracy 93.02
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 71303168
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 919915160. Used: 617925272
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 20515968
+		Collection
+Single Thread for fold 3 Elapsed(sec) 85.66. accuracy 93.15
+	2 57367 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 75497472
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 953785432. Used: 752465944
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 20299776
+		Collection
+	3 29841 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 218103808
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 961024000. Used: 742920192
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 15827904
+		Collection
+	4 29908 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 218103808
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 961024000. Used: 746586112
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 33554432
+		Collection
+	5 29810 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 218103808
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 961024000. Used: 937320448
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 32410048
+		Collection
+	6 29837 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 218103808
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 961024000. Used: 790605872
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 34198848
+		Collection
+	7 29861 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 218103808
+		Collection
+			Count: 522. Time(ms): 126
+	Name: G1 Old Gen
+		Peak: 961024000. Used: 836208320
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 8570912
+		Collection
+Adaptive:
+Avg: 34437	Min: 29810 Thread 5.	Max: 29908 Thread 4
+*** CV Fold 5
+Default Adaptive(5 fold): used 3 threads. Elapsed(sec) 55.65. accuracy 93.52
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 83886080
+		Collection
+			Count: 524. Time(ms): 127
+	Name: G1 Old Gen
+		Peak: 2132488576. Used: 81785936
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 81045680
+		Collection
+Single Thread for fold 5 Elapsed(sec) 132.31. accuracy 93.54
+	2 80583 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 46137344
+		Collection
+			Count: 534. Time(ms): 130
+	Name: G1 Old Gen
+		Peak: 2366346976. Used: 194591024
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 48814712
+		Collection
+	3 55551 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 88080384
+		Collection
+			Count: 538. Time(ms): 131
+	Name: G1 Old Gen
+		Peak: 2366346976. Used: 150030048
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 14000520
+		Collection
+	4 54885 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 977272832. Used: 25165824
+		Collection
+			Count: 540. Time(ms): 132
+	Name: G1 Old Gen
+		Peak: 2366346976. Used: 183731968
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 81175352. Used: 44625920
+		Collection
+	5 29388 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1086324736. Used: 16777216
+		Collection
+			Count: 544. Time(ms): 133
+	Name: G1 Old Gen
+		Peak: 2366346976. Used: 180355072
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 108105568. Used: 29126464
+		Collection
+	6 29345 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1086324736. Used: 230686720
+		Collection
+			Count: 546. Time(ms): 133
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 954643856
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 108105568. Used: 29360128
+		Collection
+	7 29284 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 218103808
+		Collection
+			Count: 548. Time(ms): 134
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 366296656
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 25165824
+		Collection
+Adaptive:
+Avg: 46506	Min: 29284 Thread 7.	Max: 0 Thread 0
+*** CV Fold 8
+Default Adaptive(8 fold): used 4 threads. Elapsed(sec) 55.16. accuracy 93.91
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 109051904
+		Collection
+			Count: 554. Time(ms): 135
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 142351776
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 37748736
+		Collection
+Single Thread for fold 8 Elapsed(sec) 205.39. accuracy 93.48
+	2 105465 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 71303168
+		Collection
+			Count: 572. Time(ms): 141
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 962708744
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 45128320
+		Collection
+	3 80344 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 71303168
+		Collection
+			Count: 578. Time(ms): 142
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 939643368
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 58059400
+		Collection
+	4 55131 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 117440512
+		Collection
+			Count: 586. Time(ms): 145
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 261111744
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 50135520
+		Collection
+	5 55518 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 83886080
+		Collection
+			Count: 592. Time(ms): 146
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 138412032
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 20699264
+		Collection
+	6 56986 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 67108864
+		Collection
+			Count: 596. Time(ms): 147
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 667847168
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 71191952
+		Collection
+	7 57630 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 25165824
+		Collection
+			Count: 602. Time(ms): 149
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 207960704
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 46050112
+		Collection
+Adaptive:
+Avg: 68512	Min: 55131 Thread 4.	Max: 57630 Thread 7
+*** CV Fold 10
+Default Adaptive(10 fold): used 5 threads. Elapsed(sec) 56.98. accuracy 94.09
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 125829120
+		Collection
+			Count: 610. Time(ms): 151
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 1130089296
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 25547488
+		Collection
+Single Thread for fold 10 Elapsed(sec) 258.19. accuracy 93.54
+	2 132247 used 2
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 50331648
+		Collection
+			Count: 634. Time(ms): 158
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 688695720
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 28333248
+		Collection
+	3 107075 used 3
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 25165824
+		Collection
+			Count: 644. Time(ms): 161
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 344174688
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 33554432
+		Collection
+	4 81401 used 4
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 46137344
+		Collection
+			Count: 652. Time(ms): 163
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 292223352
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 83886080
+		Collection
+	5 57073 used 5
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 113246208
+		Collection
+			Count: 658. Time(ms): 165
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 383747216
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 62358800
+		Collection
+	6 58331 used 6
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 67108864
+		Collection
+			Count: 666. Time(ms): 167
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 150994944
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 39852072
+		Collection
+	7 60340 used 7
+Memory Pool
+	Name: G1 Eden Space
+		Peak: 1321205760. Used: 96468992
+		Collection
+			Count: 672. Time(ms): 169
+	Name: G1 Old Gen
+		Peak: 3337598928. Used: 1294599864
+		Collection
+			Count: 0. Time(ms): 0
+	Name: G1 Survivor Space
+		Peak: 127926272. Used: 104857600
+		Collection
+Adaptive:
+Avg: 82744	Min: 57073 Thread 5.	Max: 60340 Thread 7

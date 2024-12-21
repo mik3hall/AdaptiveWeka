@@ -15,12 +15,17 @@ import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.evaluation.output.prediction.AbstractOutput;
 import weka.core.UnassignedClassException;
 import weka.core.Instance;
+import weka.core.AdaptiveCVInstances;
 import weka.core.Instances;
 
 public class AdaptiveEvaluationDelegate extends Evaluation {
   
   private int threadCnt = 0;
+  private static final boolean isACVI;   // Use AdaptiveCVInstances?
   
+  static {
+  	isACVI = Boolean.getBoolean("ACVI");
+  }
   /**
    * Initializes all the counters for the evaluation. Use
    * <code>useNoPriors()</code> if the dataset is the test set and you can't
@@ -76,7 +81,7 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
   public void crossValidateModel(Classifier classifier, Instances data,
                                  int numFolds, Random random, Object... forPrinting)
           throws Exception {
-
+	
     // Make a copy of the data we can reorder
     data = new Instances(data);
     data.randomize(random);
@@ -141,39 +146,53 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
   	}
   	
   	public Void call() throws Exception {
-  	 	Instances train = data.trainCV(numFolds, fold-1, random);
-  		Instances test = data.testCV(numFolds, fold-1);
-  		if (forPrinting.length > 0 && forPrinting[0] instanceof AbstractOutput) {
-	  		// print the header first
-	  		classificationOutput = (AbstractOutput) forPrinting[0];
-	  		classificationOutput.setHeader(train);
-	  		classificationOutput.printHeader();
-		}
-  		setPriors(train);
-  		Classifier copiedClassifier = AbstractClassifier.makeCopy(classifier);
-  		if (copiedClassifier instanceof ParallelIteratedSingleClassifierEnhancer) {
-  			int avail = Runtime.getRuntime().availableProcessors();
-  			int active = Thread.activeCount();
-  			if (avail - active > 3) {
-  				((ParallelIteratedSingleClassifierEnhancer)copiedClassifier).setNumExecutionSlots(2);
-  			}
-  		}
-  		copiedClassifier.buildClassifier(train);
-  		if (classificationOutput == null && forPrinting.length > 0) {
-        	((StringBuffer)forPrinting[0]).append("\n=== Classifier model (training fold " + fold +") ===\n\n" +
-                classifier);
-      	}
-	  	if (classificationOutput != null){
-			evaluateModel(copiedClassifier, test, forPrinting);
-	  	} else {
-			try {
-				evaluateModel(copiedClassifier, test);
+  		try {
+  			Instances train, test;
+  			if (!isACVI) {
+				train = data.trainCV(numFolds, fold-1, random);
+				test = data.testCV(numFolds, fold-1);
 			}
-			catch (Exception ex) { ex.printStackTrace(); }
-	  	}
-	  	if (classificationOutput != null) {
-      		classificationOutput.printFooter();
-    	}
+			else {
+				CVFoldInfo trainInfo = new CVFoldInfo(data, numFolds, fold-1, true);
+				train = new AdaptiveCVInstances(data, trainInfo);
+				CVFoldInfo testInfo = new CVFoldInfo(data, numFolds, fold-1, false);
+				test = new AdaptiveCVInstances(data, testInfo); 
+			}
+			if (forPrinting.length > 0 && forPrinting[0] instanceof AbstractOutput) {
+				// print the header first
+				classificationOutput = (AbstractOutput) forPrinting[0];
+				classificationOutput.setHeader(train);
+				classificationOutput.printHeader();
+			}
+			setPriors(train);
+			Classifier copiedClassifier = AbstractClassifier.makeCopy(classifier);
+			if (copiedClassifier instanceof ParallelIteratedSingleClassifierEnhancer) {
+				int avail = Runtime.getRuntime().availableProcessors();
+				int active = Thread.activeCount();
+				if (avail - active > 3) {
+					((ParallelIteratedSingleClassifierEnhancer)copiedClassifier).setNumExecutionSlots(2);
+				}
+			}
+  			copiedClassifier.buildClassifier(train);
+			if (classificationOutput == null && forPrinting.length > 0) {
+				((StringBuffer)forPrinting[0]).append("\n=== Classifier model (training fold " + fold +") ===\n\n" +
+					classifier);
+			}
+			if (classificationOutput != null){
+				evaluateModel(copiedClassifier, test, forPrinting);
+			} else {
+				try {
+					evaluateModel(copiedClassifier, test);
+				}
+				catch (Exception ex) { ex.printStackTrace(); }
+			}
+			if (classificationOutput != null) {
+				classificationOutput.printFooter();
+    		}
+  		}
+  		catch (Throwable tossed) {
+  			tossed.printStackTrace();
+  		}
   		return null;
   	}
   }

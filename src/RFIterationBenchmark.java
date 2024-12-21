@@ -2,8 +2,8 @@ package us.hall.weka.benchmark;
 
 import weka.core.*;
 import weka.classifiers.Classifier;
-import weka.classifiers.evaluation.Evaluation;
-import weka.classifiers.evaluation.ThreadedEvaluation;
+import weka.classifiers.Evaluation;
+import weka.classifiers.AdaptiveEvaluation;
 import weka.classifiers.trees.RandomForest;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -236,7 +236,7 @@ public class RFIterationBenchmark {
 	}
 		
 	static Evaluation evaluate(Classifier classifier, Instances trainingData) throws Exception {
-		Evaluation eval = (Evaluation)new ThreadedEvaluation(trainingData);
+		Evaluation eval = (Evaluation)new AdaptiveEvaluation(trainingData);
 		eval.crossValidateModel(classifier, trainingData, 10, new java.util.Random(1));
 		return eval;
 	}
