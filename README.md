@@ -30,6 +30,26 @@ I have moved the current [benchmarking](benchmark/benchmark.md) related.
 
 ## AdaptiveCVInstances
 
+**12/23/24**
+
+I started testing the Cifar data mentioned below. I was getting unusually good results using this. With the same classifiers, the same random seed(s(?)), and the same data there seemed to be no good reason for this. I thought I must have messed up and was training with the test data somehow. I did some debugging and ended up fixing some CVFoldInfo indexing on the instance method. This included adding a verify method in the AdaptiveEvaluationDelegate method to ensure my instances matched the buitin. 
+
+The better results persist. With AdaptiveCVInstances...
+
+```Correct: 70.16248466127873. Time: 118530```
+
+Without AdaptiveCVInstances...
+
+```Correct: 47.05246944450001. Time: 130558```
+
+Yes, the little bit quicker is I think reasonable. Although I still don't understand the improved accuracy. For now anyhow I have bested the **Miscellaneous** challenge below.
+
+The current tests invoked with...
+
+```java --add-exports java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -cp .:/Applications/weka-3.9.6.app/Contents/app/weka.jar:/Users/mjh/wekafiles/packages/imageFilters/imageFilters.jar:/Users/mjh/wekafiles/packages/ImageFilters/lib/lire.jar -DACVI=true Cifar /Users/mjh/Documents/weka_other/cifar10/cifar.arff```
+
+___
+
 A Instances subclass that includes a CVFoldInfo which allows indexing off of a reference to a single Instances object for cross validation with AdaptiveEvaluation. This is instead of using the trainCV and testCV Instances methods which take copies of the base Instances for each fold. As far as I know all access to Instances in cross validation is read only. The CVFoldInfo is
 unique to each fold so is not a shared resource. Therefore I think, for now, that this is thread safe. 
 
