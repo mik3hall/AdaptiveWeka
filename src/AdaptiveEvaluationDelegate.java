@@ -1,5 +1,6 @@
 package weka.classifiers.evaluation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -146,16 +147,17 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
   	}
   	
   	public Void call() throws Exception {
-  		try {
-  			Instances train, test;
-  			if (!isACVI) {
+		try {
+			Instances train, test;
+			if (!isACVI) {
 				train = data.trainCV(numFolds, fold-1, random);
-				test = data.testCV(numFolds, fold-1);
+		        test = data.testCV(numFolds, fold-1);  	
 			}
 			else {
 				CVFoldInfo trainInfo = new CVFoldInfo(data, numFolds, fold-1, true);
-				train = new AdaptiveCVInstances(data, trainInfo);
 				CVFoldInfo testInfo = new CVFoldInfo(data, numFolds, fold-1, false);
+				//verify(data, trainInfo, testInfo);
+				train = new AdaptiveCVInstances(data, trainInfo);
 				test = new AdaptiveCVInstances(data, testInfo); 
 			}
 			if (forPrinting.length > 0 && forPrinting[0] instanceof AbstractOutput) {
@@ -173,7 +175,7 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
 					((ParallelIteratedSingleClassifierEnhancer)copiedClassifier).setNumExecutionSlots(2);
 				}
 			}
-  			copiedClassifier.buildClassifier(train);
+			copiedClassifier.buildClassifier(train);
 			if (classificationOutput == null && forPrinting.length > 0) {
 				((StringBuffer)forPrinting[0]).append("\n=== Classifier model (training fold " + fold +") ===\n\n" +
 					classifier);
@@ -188,12 +190,57 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
 			}
 			if (classificationOutput != null) {
 				classificationOutput.printFooter();
-    		}
-  		}
-  		catch (Throwable tossed) {
-  			tossed.printStackTrace();
-  		}
+			}
+		}
+		catch (Throwable tossed) {
+			tossed.printStackTrace();
+		}
   		return null;
+  	}
+  	
+  	private void verify(Instances data, CVFoldInfo trainInfo, CVFoldInfo testInfo) 
+  		throws IOException {
+  		
+		Instances train = data.trainCV(numFolds, fold-1, random);
+		Instances test = data.testCV(numFolds, fold-1);
+		Instances trainI = new AdaptiveCVInstances(data, trainInfo);
+		Instances testI = new AdaptiveCVInstances(data, testInfo); 	
+		int trainNum = train.numInstances();
+		System.out.println("train number of instances " + trainNum);
+		if (trainNum != trainI.numInstances()) {
+			throw new IllegalStateException("AED mismatch on number of instances");
+		}
+		for (int i=0; i<trainNum; i++) {
+			if (!instanceEquals(train.instance(i),trainI.instance(i))) {
+				System.out.println("AED Failed on train for fold " + fold);
+				System.out.println(trainInfo);
+				throw new IllegalStateException("AED Train error on instance " + i + " info " + trainInfo.instance(i));
+			}
+		}
+		System.out.println("AED train success on fold " + fold);
+		int testNum = test.numInstances();
+		for (int i=0; i<testNum; i++) {
+			if (!instanceEquals(test.instance(i),testI.instance(i))) {
+				System.out.println("AED Failed on test for fold " + fold);
+				System.out.println(testInfo);
+				throw new IllegalStateException("AED Test error on instances " + i + " info " + trainInfo.instance(i));
+			}
+		}
+		System.out.println("AED test success on fold " + fold);
+  	}
+  	 
+  	private boolean instanceEquals(Instance instance, Instance other) {
+  		int instanceAttrNum = instance.numAttributes();
+  		int otherAttrNum = other.numAttributes();
+  		if (instanceAttrNum != otherAttrNum) {
+  			return false;
+  		}
+  		for (int i = 0; i < instanceAttrNum; i++) {
+  			if (!instance.attribute(i).equals(other.attribute(i))) {
+  				return false;
+  			}
+  		}
+  		return true;
   	}
   }
 }

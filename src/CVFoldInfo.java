@@ -65,7 +65,11 @@ public class CVFoldInfo {
 			if (index < first) {           
 				return index;
 			}
-			return index + numInstForFold;
+			if (numInstForFold + index >= numInstances) {
+				System.out.println("For folds " + numFolds + " fold # " + numFold + " first " + first + " per " + numInstForFold + " index " + index);
+				throw new IllegalStateException("too big");
+			}
+			return numInstForFold + index;
 		}
 		return first + index;
 	}

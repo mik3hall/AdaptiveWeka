@@ -51,7 +51,7 @@ public class AdaptiveCVInstances extends Instances {
     m_NamesToAttributeIndices = dataset.m_NamesToAttributeIndices;
     //m_Instances = new ArrayList<Instance>(capacity);
   }
-   
+
   /**
    * Returns the class attribute.
    * 
