@@ -71,6 +71,36 @@ public class Util {
   		return m;
   	}
   	
+  	public static String memPoolsInfo() {
+  		StringBuilder sb = new StringBuilder();
+  		sb.append("Memory Pool\n");
+  		HashMap<String, GCStats> collect = collectStats();
+  		for (MemoryPoolMXBean mpBean: ManagementFactory.getMemoryPoolMXBeans()) {
+  			if (mpBean.getType() == MemoryType.HEAP) {
+  				sb.append("\tName: ").append(mpBean.getName()).append("\n");
+  				long peak = mpBean.getPeakUsage().getUsed();
+  				long used = mpBean.getUsage().getUsed();
+  				sb.append("\t\tPeak: ").append(peak).append(". Used: ").append(used).append("\n");
+  				sb.append("\t\tCollection");
+  				if (mpBean.getName().endsWith("Eden Space")) {
+  					GCStats stats = collect.get("Eden");
+  					long count = stats.getCount();
+  					long time = stats.getTime();
+  					sb.append("\t\t\tCount: ").append(count);
+  					sb.append(". Time(ms): ").append(time).append("\n");
+  				}
+  				else if (mpBean.getName().endsWith("Old Gen")) {
+  					GCStats stats = collect.get("Old");
+  					long count = stats.getCount();
+  					long time = stats.getTime();
+  					sb.append("\t\t\tCount: ").append(count);
+  					sb.append(". Time(ms): ").append(time).append("\n");
+  				}
+  			}
+  		}
+  		return sb.toString();
+  	}
+  	
   	public static MemPoolData pools(long[] peakUseds, long[] maxUseds) { 
 		System.out.println("Memory Pool");
 		MemPoolData poolData = new MemPoolData();

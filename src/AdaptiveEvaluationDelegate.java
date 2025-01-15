@@ -175,7 +175,16 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
 					((ParallelIteratedSingleClassifierEnhancer)copiedClassifier).setNumExecutionSlots(2);
 				}
 			}
-			copiedClassifier.buildClassifier(train);
+			System.out.println("Before build verify fold " + fold);
+			CVFoldInfo trainACVI = new CVFoldInfo(data, numFolds, fold-1, true);
+			CVFoldInfo testACVI = new CVFoldInfo(data, numFolds, fold-1, false);
+			verify(data, trainACVI, testACVI); 
+			//copiedClassifier.buildClassifier(train);
+			copiedClassifier.buildClassifier(new AdaptiveCVInstances(data,trainACVI));
+			System.out.println("After build train verify fold " + fold);
+			verifyInstances(train, new AdaptiveCVInstances(data, trainACVI));
+			System.out.println("After build test verify fold " + fold);
+			verifyInstances(test, new AdaptiveCVInstances(data, testACVI));
 			if (classificationOutput == null && forPrinting.length > 0) {
 				((StringBuffer)forPrinting[0]).append("\n=== Classifier model (training fold " + fold +") ===\n\n" +
 					classifier);
@@ -184,7 +193,8 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
 				evaluateModel(copiedClassifier, test, forPrinting);
 			} else {
 				try {
-					evaluateModel(copiedClassifier, test);
+					//evaluateModel(copiedClassifier, test);
+					evaluateModel(copiedClassifier, new AdaptiveCVInstances(data, testACVI));
 				}
 				catch (Exception ex) { ex.printStackTrace(); }
 			}
@@ -196,6 +206,17 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
 			tossed.printStackTrace();
 		}
   		return null;
+  	}
+  	
+  	private void verifyInstances(Instances instances, Instances other) {
+  		if (instances.numInstances() != other.numInstances()) {
+  			throw new IllegalStateException ("AED mismatch on number of instances");
+  		}
+  		for (int i=0; i<instances.numInstances(); i++) {
+  			if (!instanceEquals(instances.instance(i),other.instance(i))) {
+  				throw new IllegalStateException("AED different at " + i);
+  			}
+  		}
   	}
   	
   	private void verify(Instances data, CVFoldInfo trainInfo, CVFoldInfo testInfo) 
