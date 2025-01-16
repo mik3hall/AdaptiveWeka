@@ -24,6 +24,32 @@ For cross-validation the wekaServer package was suggested to me on the Weka mail
 
 These are handled the same as is normal in Weka in that they are parameter controlled. You can indicate execution slots or it defaults to one, single threaded.. My code differs from this static approach in attempting a more dynamic default where it selects some number of parallel execution threads based on processor availability and number of folds requested. 
 
+## Comparison Applications release
+
+**01/15/25**
+
+I have put out a MacOS dmg release with two applications. These are not intended to be official [Weka](https://sourceforge.net/projects/weka/) distributions. They are certainly incomplete and very probably very buggy for much of the usual functionality. They are for comparing results from changes that are made or additions to Weka code as part of this project. There is a WekaReference.app which is pretty much a (stripped down) version of the usual Weka Explorer application. Except, that after running a classification it should show a summary of memory pool and garbage collection information as well as classification elapsed time. Mainly of interest is cross validation where my multi-threaded changes apply. The other application is WekaAdaptive.app, which includes changes for this purpose. 
+
+This should make it easier to test these changes a little bit without needing to mess with command line or coding your own java for classifications. It also is a sort of demo that changes like this are possible for the Weka Explorer application itself.  
+
+This is MacOS only because although jpackage works fine, VirtualBox seemed to become more difficult. It was some effort to provide cross-platform versions even when VirtualBox worked fairly reliably. You could look at weka_jpkg.sh or weka_adapt_jpkg.sh to get an idea of how I did this for MacOS. Maybe anyone interested could get an idea how to use jpackage for this on other platforms. The jpackage difference between the two is the inclusion of the -DAEVD=true switch in the adapt version to activate my changes in the Weka ClassifierPanel class. 
+
+This also includes -Djava.security.manager=allow which allows the application to work with a bundled jdk 22 release. I think this was a question at one point on the Weka mailing list. Whether my versions work at jdk 22 with the Weka package manager custom classloader I haven't tested. 
+
+This did require more changes to Weka proper code. I put those into the src_weka directory. 
+
+I have noticed two current issues. The adapt app sometimes shows working on a fold 11. Whether it is actually doing an extra fold or showing an incorrect fold number on a bad index I don't know yet.
+
+weka.log shows this error...
+
+```java.lang.Exception: PlotData2D: Shape type vector must have the same number of entries as number of data points!```
+
+This one is suddenly new...
+
+```weka.core.WekaException: Cannot run program "python": error=2, No such file or directory```
+
+The application again supports things that are currently not a concern of my testing.
+
 ## Benchmarking
 
 I have moved the current [benchmarking](benchmark/benchmark.md) related.
