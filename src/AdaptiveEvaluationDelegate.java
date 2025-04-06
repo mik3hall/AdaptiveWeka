@@ -126,6 +126,7 @@ public class AdaptiveEvaluationDelegate extends Evaluation {
     }
     executor.invokeAll(cvTasks);
     executor.shutdown();
+    System.out.println("AED tasks size " + cvTasks.size());
   }  
   
   public class CrossValidation implements Callable<Void> {

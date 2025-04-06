@@ -119,6 +119,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.lang.management.ManagementFactory;
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.MemoryMXBean;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -154,10 +157,11 @@ public class ClassifierPanel extends AbstractPerspective implements
   static final long serialVersionUID = 6959973704963624003L;
 
   private static final boolean isAEVD;   // Use AdaptiveEvaluationDelegate?
-  private static final boolean isACVI = false;
+  private static final boolean isACVI;
   
   static {
   	isAEVD = Boolean.getBoolean("AEVD");
+  	isACVI = Boolean.getBoolean("ACVI");
   }
   private int threadCnt = 0;
   
@@ -1623,6 +1627,7 @@ public class ClassifierPanel extends AbstractPerspective implements
               break;
 
             case 1: // CV mode
+              MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
               m_Log.statusMessage("Randomizing instances...");
               int rnd = 1;
               try {
@@ -1681,22 +1686,42 @@ public class ClassifierPanel extends AbstractPerspective implements
 				else {
 					threadCnt = 1;
 				}
+				System.gc();
+				long memLast = memoryBean.getHeapMemoryUsage().getUsed();
+				long memCV = memLast;
 			  	ExecutorService executor = Executors.newFixedThreadPool(threadCnt);
 			  	List<Callable<Void>> cvTasks = new ArrayList<>();
 			  	// Do the folds
 			  	for (int i = 0; i < numFolds; i++) {
 			    	cvTasks.add(new CrossValidation(eval, costMatrix, 
 			    		collectPredictionsForEvaluation, plotInstances, numFolds, random, 
-			    		i+1, inst, classifier, classificationOutput));
+			    		i, inst, classifier, classificationOutput));
 			  	}
 			  	executor.invokeAll(cvTasks);
 			  	executor.shutdown();
-			  	for (int i = 0; i < cvTasks.size(); i++) {
-			  		outBuff.append(((CrossValidation)cvTasks.get(i)).getOutput());
+			  	//if (outputModelsForTrainingSplits) {
+			  	if (true) {
+			  		for (int i = 0; i < cvTasks.size(); i++) {
+			  			outBuff.append(((CrossValidation)cvTasks.get(i)).getOutput());
+			  		}
 			  	}
+			  	for (GarbageCollectorMXBean collector : ManagementFactory.getGarbageCollectorMXBeans()) {
+				  	outBuff.append("GC collector: " + collector.getName() + "\n");
+				  	for (String poolName : collector.getMemoryPoolNames()) {
+				  		outBuff.append("\t").append(poolName).append("\n");
+				  	}
+				  	outBuff.append("Count: ").append(collector.getCollectionCount());
+				  	outBuff.append("\tTime: ").append(collector.getCollectionTime());
+					outBuff.append("(ms)\n\n");	  	
+				}
+				outBuff.append("CV total memory used after: " + 
+			  		(memoryBean.getHeapMemoryUsage().getUsed() - memCV) + "\n\n");
 			  }
 			  else {
 				// Make some splits and do a CV
+				System.gc();
+				long memLast = memoryBean.getHeapMemoryUsage().getUsed();
+				long memCV = memLast;
 				for (int fold = 0; fold < numFolds; fold++) {
 					m_Log.statusMessage("Creating splits for fold " + (fold + 1)
 						+ "...");
@@ -1722,6 +1747,7 @@ public class ClassifierPanel extends AbstractPerspective implements
 					  m_Log.logMessage("Problem copying classifier: "
 						+ ex.getMessage());
 					}
+					outBuff.append(Thread.currentThread().getName());
 					current.buildClassifier(train);
 					if (outputModelsForTrainingSplits) {
 					  outBuff.append("\n=== Classifier model for fold "
@@ -1758,7 +1784,23 @@ public class ClassifierPanel extends AbstractPerspective implements
 						}
 					  }
 					}
+					outBuff.append("Fold ").append(fold+1).append(" Memory\n");
+					long memUsed = memoryBean.getHeapMemoryUsage().getUsed();
+					outBuff.append("\tUsed: " + (memUsed - memLast)+"\n");
+					memLast = memUsed;
+					outBuff.append(us.hall.gc.benchmark.Util.memPoolsInfo() + "\n\n");
 				  }
+				  for (GarbageCollectorMXBean collector : ManagementFactory.getGarbageCollectorMXBeans()) {
+				  	outBuff.append("GC collector: " + collector.getName() + "\n");
+				  	for (String poolName : collector.getMemoryPoolNames()) {
+				  		outBuff.append("\t").append(poolName).append("\n");
+				  	}
+				  	outBuff.append("Count: ").append(collector.getCollectionCount());
+				  	outBuff.append("\tTime: ").append(collector.getCollectionTime());
+					outBuff.append("(ms)\n\n");	  	
+				  }
+				  outBuff.append("CV total memory used after: " + 
+			  		(memoryBean.getHeapMemoryUsage().getUsed() - memCV) + "\n\n");
 			  }
               if (outputPredictionsText) {
                 classificationOutput.printFooter();
@@ -2128,7 +2170,9 @@ public class ClassifierPanel extends AbstractPerspective implements
   	ClassifierErrorsPlotInstances plotInstances = null;
   	boolean collectPredictionsForEvaluation = false;
  	AbstractOutput classificationOutput = null;
- 		
+ 	MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+ 	long memIn; 
+ 				
   	CrossValidation(Evaluation eval, CostMatrix costMatrix, 
   			boolean collectPredictionsForEvaluation, 
   			ClassifierErrorsPlotInstances plotInstances, int numFolds, Random random, 
@@ -2145,6 +2189,7 @@ public class ClassifierPanel extends AbstractPerspective implements
   		this.costMatrix = costMatrix;
   		this.collectPredictionsForEvaluation = collectPredictionsForEvaluation;
   		this.classificationOutput = classificationOutput;
+  		memIn = memoryBean.getHeapMemoryUsage().getUsed();
   	}
   	
   	public String getOutput() {
@@ -2154,6 +2199,8 @@ public class ClassifierPanel extends AbstractPerspective implements
   	public Void call() throws Exception {
 		try {
 			Instances train, test;
+			foldBuff.append(Thread.currentThread().getName());
+			foldBuff.append("CV Memory in for fold " + (fold + 1) + " " + memIn);
 			m_Log.statusMessage("Creating splits for fold " + (fold + 1)
                   + "...");
 
@@ -2202,9 +2249,6 @@ public class ClassifierPanel extends AbstractPerspective implements
             //Instances test = inst.testCV(numFolds, fold);
             m_Log.statusMessage("Evaluating model for fold " + (fold + 1)
             	+ "...");
-			CVFoldInfo trainACVI = new CVFoldInfo(data, numFolds, fold-1, true);
-			CVFoldInfo testACVI = new CVFoldInfo(data, numFolds, fold-1, false);
-			current.buildClassifier(new AdaptiveCVInstances(data,trainACVI));
 			if (classifier instanceof BatchPredictor
                   && ((BatchPredictor) classifier)
                     .implementsMoreEfficientBatchPrediction()) {
@@ -2223,20 +2267,23 @@ public class ClassifierPanel extends AbstractPerspective implements
                         test.instance(jj), jj);
                     }
                   }
-                } else {
-                  for (int jj = 0; jj < test.numInstances(); jj++) {
-                    plotInstances.process(test.instance(jj), current, eval);
+            } else {
+                for (int jj = 0; jj < test.numInstances(); jj++) {
+                	plotInstances.process(test.instance(jj), current, eval);
                     if (false) {
                     //if (outputPredictionsText) {
                       classificationOutput.printClassification(current,
                         test.instance(jj), jj);
                     }
-                  }
                 }
+            }
 		}
 		catch (Throwable tossed) {
 			tossed.printStackTrace();
 		}
+		foldBuff.append("Mem used at end of fold " + (fold + 1) + ": " + 
+			memoryBean.getHeapMemoryUsage().getUsed() + "\n");
+		foldBuff.append(us.hall.gc.benchmark.Util.memPoolsInfo() + "\n");
   		return null;
   	}
   }

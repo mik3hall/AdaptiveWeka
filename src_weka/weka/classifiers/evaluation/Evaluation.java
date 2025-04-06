@@ -2090,11 +2090,17 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
    * @return the predictions
    * @throws Exception if model could not be evaluated successfully
    */
+  private boolean hitMethod = false;
+  
   public double[] evaluateModel(Classifier classifier, Instances data,
     Object... forPredictionsPrinting) throws Exception {
     // for predictions printing
     AbstractOutput classificationOutput = null;
 
+	if (!hitMethod) {
+		System.out.println("*** Evaluation: hit evaluateModel method");
+		hitMethod = true;
+	}
     double predictions[] = new double[data.numInstances()];
 
     if (forPredictionsPrinting.length > 0) {
@@ -2144,11 +2150,16 @@ public class Evaluation implements Summarizable, RevisionHandler, Serializable {
    * @return the prediction
    * @throws Exception if model could not be evaluated successfully
    */
+  private boolean threadMessaged = false;
+  
   public double evaluationForSingleInstance(double[] dist, Instance instance,
     boolean storePredictions) throws Exception {
 
     double pred;
-
+	if (!threadMessaged) {
+		System.out.println("Current thread is " + Thread.currentThread());
+		threadMessaged = true;
+	}
     if (m_ClassIsNominal) {
       pred = Utils.maxIndex(dist);
       if (dist[(int) pred] <= 0) {

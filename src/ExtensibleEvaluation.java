@@ -2588,7 +2588,6 @@ public class ExtensibleEvaluation implements Summarizable, RevisionHandler, Seri
    * @return the percent of correctly classified instances (between 0 and 100)
    */
   public double pctCorrect() {
-	System.out.println("EE m_correct " + m_Correct + " with " + m_WithClass);
     return 100 * m_Correct / m_WithClass;
   }
 

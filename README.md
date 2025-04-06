@@ -26,6 +26,19 @@ These are handled the same as is normal in Weka in that they are parameter contr
 
 ## Comparison Applications release
 
+**04/06/25**
+
+Apparently, I had corrected the problem with unrealistically better results and not noticed. After rebuilding the applications and recompiling the command line Cifar class I now get consistent results against all versions. Normal, WekaReference.app or no switches command line - adapted, WekaAdaptive.app or -AEVD=true switch - adapted with my CV instances, WekaAdaptiveCVI or 
+both -AEVD=true and -ACVI=true switches.
+
+Again, this provides multithreading on cross validations. This is probably a minimum of twice as fast as without multithreading. It can be used with any classifiers, not just the ones where Weka has determined that the classifier itself can be multi-threaded and provided 'slots' parameters for. 
+
+For large datasets memory can be a problem. Doing more things at the same time means more memory is needed at that time and peak memory usage is higher. I have increased heap memory, -Xmx12g, on my applications and command line usage. My instances classes that reference the same single instances so far doesn't seem to do much to mitigate this. Adaptive was intended to also adapt to available memory and the size of the instances. Somehow determining how many additional threads to use or possibly throttling execution of active threads.
+
+That is where any additional effort will probably go.
+
+I believe that this proves that Weka could get significant performance gains by multithreading cross validation. Mark Hall's wekaServer package already proved the feasibility, by doing it there. This shows the feasibility of doing it from the GUI and Weka core.
+
 **01/15/25**
 
 I have put out a MacOS dmg release with two applications. These are not intended to be official [Weka](https://sourceforge.net/projects/weka/) distributions. They are certainly incomplete and very probably very buggy for much of the usual functionality. They are for comparing results from changes that are made or additions to Weka code as part of this project. There is a WekaReference.app which is pretty much a (stripped down) version of the usual Weka Explorer application. Except, that after running a classification it should show a summary of memory pool and garbage collection information as well as classification elapsed time. Mainly of interest is cross validation where my multi-threaded changes apply. The other application is WekaAdaptive.app, which includes changes for this purpose. 

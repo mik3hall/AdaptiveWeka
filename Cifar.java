@@ -50,8 +50,23 @@ public class Cifar {
 			Classifier dl4j = (Classifier)Utils.forName(Classifier.class,
 				"weka.classifiers.functions.Dl4jMlpClassifier",new String[0]);	
 			RandomForest rf = new RandomForest();	
+			System.out.println("RF parameters:");
+			String[] options = rf.getOptions();
+			for (int i = 0; i < options.length; i += 2) {
+				System.out.println("\t"  + options[i] + "\t" + options[i+1]);
+			}
 			IBk ibk = new IBk();
+			System.out.println("IBk parameters:");
+			options = ibk.getOptions();
+			for (int i = 0; i < options.length; i += 2) {
+				System.out.println("\t"  + options[i] + "\t" + options[i+1]);
+			}
 			NaiveBayes nb = new NaiveBayes();
+			options = nb.getOptions();
+			System.out.println("nb parameters:");
+			for (int i = 0; i < options.length; i += 2) {
+				System.out.println("\t"  + options[i] + "\t" + options[i+1]);
+			}			
 			voter.setClassifiers(new Classifier[] { rf, ibk, nb});
 			long adaptIn = System.currentTimeMillis();
 			Evaluation eval = adaptiveEvaluate(voter, 10, trainingData);	

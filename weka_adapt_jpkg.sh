@@ -30,7 +30,7 @@ ${PACKAGER} \
 	--main-jar weka.jar \
 	--main-class weka.gui.GUIChooser \
 	--module-path '/Users/mjh/Documents/javafx-jmods-21.0.1' \
-	--java-options '-Xmx8g -XX:+UnlockDiagnosticVMOptions --add-opens java.desktop/javax.swing.text=ALL-UNNAMED --enable-native-access=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-exports java.base/java.lang=ALL-UNNAMED -Djava.security.manager=allow -DAEVD=true' \
+	--java-options '-Xmx10g -XX:+UnlockDiagnosticVMOptions --add-opens java.desktop/javax.swing.text=ALL-UNNAMED --enable-native-access=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-exports java.base/java.lang=ALL-UNNAMED -Djava.security.manager=allow -DAEVD=true' \
 	--mac-package-identifier "us.hall.weka" \
 	--mac-sign \
 	--mac-signing-key-user-name "$SIGNING_CERT" \
